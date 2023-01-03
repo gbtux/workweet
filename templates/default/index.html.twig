@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Workweet{% endblock %}
+
+{% block body %}
+<div id="app"></div>
+    {# <input id="mercure-base-url" type="hidden" value="{{ mercure('https://workweet.com')|escape('js') }}">  #}
+{% endblock %}
+
+{#
+http://127.0.0.1:32772/.well-known/mercure?topic=https%3A%2F%2Fexample.com%2Fbooks%2F1
+    http://127.0.0.1:32772/.well-known/mercure?topic=https%3A%2F%2Fworkweet.com
+#}
+
+{#
+{% block javascripts %}
+    <script>
+        const url = "{{ mercure('https://workweet.com')|escape('js') }}"
+        console.log(url)
+        const eventSource = new EventSource("{{ mercure('https://example.com/books/1')|escape('js') }}");
+        eventSource.onmessage = event => {
+            // Will be called every time an update is published by the server
+            console.log(JSON.parse(event.data));
+        }
+    </script>
+{% endblock %}
+#}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="application/json" id="sse-url">
+        {{ mercure('https://workweet.com')|json_encode(constant('JSON_UNESCAPED_SLASHES') b-or constant('JSON_HEX_TAG'))|raw }}
+    </script>
+{% endblock %}

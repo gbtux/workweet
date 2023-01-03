@@ -22,3 +22,8 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\Controller\DavController:
+        arguments:
+            $publicDir: "%kernel.project_dir%/public"
+            $webdavPublicDir: "%env(WEBDAV_PUBLIC_DIR)%"
+            $webdavTmpDir: "%env(WEBDAV_TMP_DIR)%"
